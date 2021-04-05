@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var startAnimation = false
+    
     var body: some View {
-        Text("Hello, World!")
-            .padding()
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.white, lineWidth: 2)
+                .frame(width: 70, height: 50)
+                .scaleEffect(x: startAnimation ? 1.15 : 1, y: 1, anchor: .leading)
+//                .animation(Animation.easeInOut(duration: 0.7)
+//                            .repeatForever(autoreverses: true))
+            Image(systemName: "arrow.right")
+//                .font(.title)
+                .offset(x: startAnimation ? 18 : 0)
+
+        }
+        .animation(Animation.easeInOut(duration: 0.7)
+                    .repeatForever(autoreverses: true))
+        .onAppear() {
+            startAnimation.toggle()
+        }
     }
 }
 
@@ -19,3 +37,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
